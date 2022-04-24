@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bad Chess Bots</title>
+    <link rel="stylesheet"
+        href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
+        integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
+        crossorigin="anonymous">
+    <!--    Required for chessboard.js-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
+            crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
+            integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
+            crossorigin="anonymous">
+    </script>
+    <script src="chess.js"></script>
+    <script src="wasm_exec.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="board" style="width: 400px"></div>
+        <button id="reset">Reset</button>
+        <label for="bots">Bot</label>
+        <select name="bots" id="bots">
+            <option value="random">Random</option>
+            <option value="sameColor">Same Color</option>
+            <option value="oppositeColor">Opposite Color</option>
+        </select>
+    </div>
+</body>
+<style>
+    #board, #wrapper {
+        text-align: center;
+        margin: 0 auto
+    }
+    button {
+        display: block;
+        margin: 10px auto
+    }
+    select {
+        margin: 10px 10px 10px 0;
+    }
+</style>
+<script>
+    const WASM_URL = 'wasm.wasm';
+    var wasm;
+    const go = new Go();
+    go.importObject.env["syscall/js.finalizeRef"] = () => {} // hides an error message https://github.com/tinygo-org/tinygo/issues/1140
+    if ('instantiateStreaming' in WebAssembly) {
+        WebAssembly.instantiateStreaming(fetch(WASM_URL), go.importObject).then(function (obj) {
+            wasm = obj.instance;
+            go.run(wasm);
+            botFuncSelected = window["random"]
+        })
+    } else {
+        fetch(WASM_URL).then(resp =>
+            resp.arrayBuffer()
+        ).then(bytes =>
+            WebAssembly.instantiate(bytes, go.importObject).then(function (obj) {
+                wasm = obj.instance;
+                go.run(wasm);
+                botFuncSelected = window["random"]
+            })
+        )
+    }
+
+    let board = null
+    let game = new Chess()
+    let botFuncSelected = () => {}
+    function onDragStart (source, piece, position, orientation) {
+        if (game.game_over()) return false
+
+        if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+            (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+            return false
+        }
+    }
+
+    function onDrop (source, target) {
+        let move = game.move({
+            from: source,
+            to: target,
+            promotion: 'q' // NOTE: always promote to a queen for example simplicity
+        })
+
+        if (move === null) return 'snapback'
+        if (game.in_stalemate() || game.in_draw() || game.in_checkmate()) return
+        let mv = botFuncSelected(game.fen())
+        game.move({from: mv.split(",")[0], to: mv.split(",")[1]})
+    }
+
+    function onSnapEnd () {
+        board.position(game.fen())
+    }
+
+    board = Chessboard("board", {
+        draggable: true,
+        pieceTheme: "pieces/{piece}.png",
+        position: "start",
+        onDragStart: onDragStart,
+        onDrop: onDrop,
+        onSnapEnd: onSnapEnd
+    })
+
+    document.getElementById("reset").addEventListener("click", ()=>{game.reset(); board.position("start")})
+    document.getElementById("bots").addEventListener("change", (e) => {
+        botFuncSelected = window[e.target.value]
+    })
+</script>
+</html>
