@@ -1,12 +1,12 @@
-package main
+package bot
 
 import (
 	"github.com/notnil/chess"
 )
 
-// oppositeColor puts their pieces on the opposite color (white tries to place pieces on dark squares).
+// OppositeColor puts their pieces on the opposite color (white tries to place pieces on dark squares).
 // Otherwise, it plays a random move.
-func oppositeColor(p *chess.Position) *chess.Move {
+func OppositeColor(p *chess.Position) *chess.Move {
 	myColor := p.Turn()
 	desiredSquareColor := chess.Black
 	if myColor == chess.Black {
@@ -24,14 +24,14 @@ func oppositeColor(p *chess.Position) *chess.Move {
 		}
 	}
 	if len(preferredMoves) == 0 {
-		return randomMove(p)
+		return Random(p)
 	}
 	return preferredMoves[0]
 }
 
-// sameColor puts their pieces on the same color (white tries to place pieces on light squares).
+// SameColor puts their pieces on the same color (white tries to place pieces on light squares).
 // Otherwise, it plays a random move.
-func sameColor(p *chess.Position) *chess.Move {
+func SameColor(p *chess.Position) *chess.Move {
 	myColor := p.Turn()
 	desiredSquareColor := chess.White
 	if myColor == chess.Black {
@@ -49,7 +49,7 @@ func sameColor(p *chess.Position) *chess.Move {
 		}
 	}
 	if len(preferredMoves) == 0 {
-		return randomMove(p)
+		return Random(p)
 	}
 	return preferredMoves[0]
 }

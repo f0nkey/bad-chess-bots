@@ -1,4 +1,4 @@
-package main
+package bot
 
 import (
 	"github.com/notnil/chess"
@@ -6,8 +6,8 @@ import (
 	"time"
 )
 
-// randomMove makes random moves.
-func randomMove(p *chess.Position) *chess.Move {
+// Random plays random moves.
+func Random(p *chess.Position) *chess.Move {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 	moves := p.ValidMoves()
