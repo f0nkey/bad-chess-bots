@@ -2,6 +2,7 @@ package bot
 
 import (
 	"github.com/notnil/chess"
+	"math/rand"
 )
 
 // OppositeColor puts their pieces on the opposite color (white tries to place pieces on dark squares).
@@ -26,7 +27,7 @@ func OppositeColor(p *chess.Position) *chess.Move {
 	if len(preferredMoves) == 0 {
 		return Random(p)
 	}
-	return preferredMoves[0]
+	return preferredMoves[rand.Intn(len(preferredMoves))]
 }
 
 // SameColor puts their pieces on the same color (white tries to place pieces on light squares).
@@ -51,5 +52,5 @@ func SameColor(p *chess.Position) *chess.Move {
 	if len(preferredMoves) == 0 {
 		return Random(p)
 	}
-	return preferredMoves[0]
+	return preferredMoves[rand.Intn(len(preferredMoves))]
 }
