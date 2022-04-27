@@ -18,6 +18,7 @@ A bunch of bad chess bots that you can actually beat for once!
 | Opposite Color | Plays moves to the opposite color square                             | 
 | Huddle         | Attempts to put its pieces as close as possible to its own king      |
 | Swarm          | Attempts to put its pieces as close as possible to the opposing king |
+| Centrist       | Prefers placing pieces in the center                                 |
 
 ## Building
 This project requires [TinyGo](https://github.com/tinygo-org/tinygo) to be installed.

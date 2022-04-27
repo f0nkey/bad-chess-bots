@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	js.Global().Set("centrist", js.FuncOf(jsCompatiableFunc(bot.Centrist)))
 	js.Global().Set("swarm", js.FuncOf(jsCompatiableFunc(bot.Swarm)))
 	js.Global().Set("huddle", js.FuncOf(jsCompatiableFunc(bot.Huddle)))
 	js.Global().Set("oppositeColor", js.FuncOf(jsCompatiableFunc(bot.OppositeColor)))
