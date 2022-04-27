@@ -45,7 +45,7 @@
     }
 </style>
 <script>
-    const WASM_URL = 'wasm.wasm';
+    const WASM_URL = 'bots.wasm';
     var wasm;
     const go = new Go();
     go.importObject.env["syscall/js.finalizeRef"] = () => {} // hides an error message https://github.com/tinygo-org/tinygo/issues/1140
