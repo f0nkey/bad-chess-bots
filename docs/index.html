@@ -55,7 +55,7 @@
         WebAssembly.instantiateStreaming(fetch(WASM_URL), go.importObject).then(function (obj) {
             wasm = obj.instance;
             go.run(wasm);
-            botFuncSelected = window["random"]
+            botFuncSelected = window[document.getElementById("bots").options[0].value]
         })
     } else {
         fetch(WASM_URL).then(resp =>
@@ -64,7 +64,7 @@
             WebAssembly.instantiate(bytes, go.importObject).then(function (obj) {
                 wasm = obj.instance;
                 go.run(wasm);
-                botFuncSelected = window["random"]
+                botFuncSelected = window[document.getElementById("bots").options[0].value]
             })
         )
     }
