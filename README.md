@@ -16,3 +16,13 @@ A bunch of bad chess bots that you can actually beat for once!
 | Random         | Plays random moves                                  | 
 | Same Color     | Plays moves to the same color squares as its pieces | 
 | Opposite Color | Plays moves to the opposite color square            | 
+
+## Building
+This project requires [TinyGo](https://github.com/tinygo-org/tinygo) to be installed.
+
+`tinygo build -o ./docs/bots.wasm -target wasm ./`
+
+## Testing
+Opening the `index.html` on its own will not work since the proper `Content-Type` for `bots.wasm` will not be served. Use this command from the root to run a server properly serving `bots.wasm`
+
+`go run ./test-server/main.go`
