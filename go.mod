@@ -1,5 +1,5 @@
 module bad-chess-bots
 
-go 1.18
+go 1.17
 
-require github.com/notnil/chess v1.8.0 // indirect
+require github.com/notnil/chess v1.8.0
