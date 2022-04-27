@@ -7,7 +7,7 @@ A bunch of bad chess bots that you can actually beat for once!
 * Inspired by [this awesome video](https://www.youtube.com/watch?v=DpXy041BIlA)
 * Playable in the browser
 
-<p align="center"><a href="https://f0nkey.github.io/bad-chess-bots/">Play Now</a></p>
+[Play Now](https://f0nkey.github.io/bad-chess-bots/)
 
 ## Bots
 
