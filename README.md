@@ -11,11 +11,13 @@ A bunch of bad chess bots that you can actually beat for once!
 
 ## Bots
 
-| Bot            | Strategy                                            |
-|----------------|:----------------------------------------------------|
-| Random         | Plays random moves                                  | 
-| Same Color     | Plays moves to the same color squares as its pieces | 
-| Opposite Color | Plays moves to the opposite color square            | 
+| Bot            | Strategy                                                             |
+|----------------|:---------------------------------------------------------------------|
+| Random         | Plays random moves                                                   | 
+| Same Color     | Plays moves to the same color squares as its pieces                  | 
+| Opposite Color | Plays moves to the opposite color square                             | 
+| Huddle         | Attempts to put its pieces as closea s possible to its own king      |
+| Swarm          | Attempts to put its pieces as close as possible to the opposing king |
 
 ## Building
 This project requires [TinyGo](https://github.com/tinygo-org/tinygo) to be installed.
