@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Bad Chess Bots</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet"
         href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
         integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
@@ -21,10 +24,13 @@
 </head>
 <body>
     <div id="container">
+        <div id="top-bar">
+            <h1 id="logotype">Bad Chess Bots</h1>
+            <h1 id="gh-link"><a href="https://github.com/f0nkey/bad-chess-bots">GitHub</a></h1>
+        </div>
         <div id="board-wrapper">
             <div id="board"></div>
         </div>
-        <button id="reset">Reset</button>
         <label for="bots">Bot</label>
         <select name="bots" id="bots">
             <option value="centrist">Centrist</option>
@@ -34,9 +40,19 @@
             <option value="sameColor">Same Color</option>
             <option value="oppositeColor">Opposite Color</option>
         </select>
+        <button id="reset">Reset</button>
     </div>
 </body>
 <style>
+    body {
+        font-family: "Open Sans", sans-serif;
+        color: rgb(68, 68, 68);
+        background: #d0d0d0;
+    }
+    h1 {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
     #board, #container {
         touch-action: none;
         text-align: center;
@@ -44,22 +60,59 @@
     }
     #board {
         width:100%;
-        z-index:1
+        z-index:1;
+    }
+    #top-bar {
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        width: min(75vw, 75vh);
+        margin: 0 auto;
+    }
+    #logotype {
+        align-self: start;
+        text-align: left;
+    }
+    #gh-link {
+        color: #1a82e8;
+        align-self: end;
+        text-align: right;
+    }
+    #gh-link > a:visited, #gh-link > a {
+        color:inherit;
+        text-decoration: none;
+    }
+    #gh-link > a:hover {
+        color: #064485;
     }
     #board-wrapper {
-        width: min(80vw, 80vh);
+        width: min(75vw, 75vh);
         margin: 0 auto;
         padding: 10px;
-        background-color: rgba(0,0,0,0.1);
         resize: horizontal;
         overflow: auto;
+        box-shadow: 0 0.1em 0.6em rgb(0 0 0 / 30%), 0.6em -0.5em 3em rgb(0 0 0 / 30%), 1em -1em 8em #fefefe;
+    }
+    button, select, option {
+        font-family: "Open Sans", sans-serif;
+        display:inline-block;
+        padding: 10px;
+        color: white;
+        background-color: rgb(68, 68, 68);;
+        border: 1px solid #ccc;
+        margin: 10px auto;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor:pointer;
+    }
+    label {
+        color: rgb(68, 68, 68);
+        padding-right:5px;
     }
     button {
-        display: block;
-        margin: 10px auto
+        margin: 30px auto
     }
     select {
-        margin: 10px 10px 10px 0;
+        margin: 30px 10px 10px 0;
     }
 </style>
 <script>
