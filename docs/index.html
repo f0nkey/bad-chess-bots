@@ -20,8 +20,10 @@
     <script src="wasm_exec.js"></script>
 </head>
 <body>
-    <div id="wrapper">
-        <div id="board" style="width: 400px"></div>
+    <div id="container">
+        <div id="board-wrapper">
+            <div id="board"></div>
+        </div>
         <button id="reset">Reset</button>
         <label for="bots">Bot</label>
         <select name="bots" id="bots">
@@ -35,10 +37,22 @@
     </div>
 </body>
 <style>
-    #board, #wrapper {
+    #board, #container {
         touch-action: none;
         text-align: center;
         margin: 0 auto
+    }
+    #board {
+        width:100%;
+        z-index:1
+    }
+    #board-wrapper {
+        width: min(80vw, 80vh);
+        margin: 0 auto;
+        padding: 10px;
+        background-color: rgba(0,0,0,0.1);
+        resize: horizontal;
+        overflow: auto;
     }
     button {
         display: block;
@@ -108,6 +122,11 @@
         onDrop: onDrop,
         onSnapEnd: onSnapEnd
     })
+
+    const observer = new ResizeObserver( _ => {
+        board.resize()
+    });
+    observer.observe(document.getElementById("board-wrapper"))
 
     document.getElementById("reset").addEventListener("click", ()=>{game.reset(); board.position("start")})
     document.getElementById("bots").addEventListener("change", (e) => {
